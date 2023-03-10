@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GedComLogic\GedComLogic.csproj" />
+    <ProjectReference Include="..\GedComModel\GedComModel.csproj" />
+    <ProjectReference Include="..\GedComParser\GedComParser.csproj" />
+    <ProjectReference Include="..\LaTeXExport\LaTeXExport.csproj" />
+  </ItemGroup>
+
+</Project>

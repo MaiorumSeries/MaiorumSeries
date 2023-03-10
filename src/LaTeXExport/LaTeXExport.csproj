@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MaiorumSeries.LaTeXExport</AssemblyName>
+    <RootNamespace>MaiorumSeries.LaTeXExport</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Ressources\**" />
+    <EmbeddedResource Remove="Ressources\**" />
+    <None Remove="Ressources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="res\logo.png" />
+    <None Remove="res\preface.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="res\logo.png" />
+    <EmbeddedResource Include="res\preface.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GedComLogic\GedComLogic.csproj" />
+    <ProjectReference Include="..\GedComModel\GedComModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

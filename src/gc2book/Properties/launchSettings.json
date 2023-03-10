@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "gc2book": {
+      "commandName": "Project",
+      "commandLineArgs": "-n \"David Burmeister\" -p \"c:\\work\\books\\Debug\" -o FileName -g \"C:\\Users\\CordB\\OneDrive\\Chronik\\GedCom\\RootsMagic\\Burmeisters.ged\"  "
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}
