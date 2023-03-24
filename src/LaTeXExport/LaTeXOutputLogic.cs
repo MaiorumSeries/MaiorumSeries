@@ -19,6 +19,7 @@ using System.Drawing.Imaging;
 using System.Reflection;
 using System.Diagnostics;
 using MaiorumSeries.GedComLogic;
+using System.Globalization;
 
 namespace MaiorumSeries.LaTeXExport
 {
@@ -28,6 +29,9 @@ namespace MaiorumSeries.LaTeXExport
     /// </summary>
     public static class LaTeXOutputLogic
     {
+
+        private static CultureInfo germanCultureInfo = new CultureInfo("de-DE");
+
         private static string CalculateOutputPath(ILaTeXExportContext context, string fileName)
         {
             if (!Directory.Exists(context.OutputPath))
@@ -802,15 +806,31 @@ namespace MaiorumSeries.LaTeXExport
                 return;
             }
 
+            bookMetaInformation = EnsureMetaDataFile(context, bookMetaInformation);
+
+
             var record = model.Individuals.Find(x => x.XrefId == personId);
             using (var laWriter = new LaTexWriter(path))
             {
+
+
                 #region Prepare the book structure with latex setup
 
                 laWriter.RawOutput(@"% Body text font is Palatino!");
-                laWriter.RawOutput(@"\documentclass[a4paper]{scrbook}");
-                laWriter.RawOutput(@"\usepackage{ trajan}");
-                laWriter.RawOutput(@"\usepackage[ngerman]{ babel}");
+
+                if (context.Culture.Equals (germanCultureInfo))
+                {
+                    laWriter.RawOutput(@"\documentclass[a4paper]{scrbook}");
+                    laWriter.RawOutput(@"\usepackage{ trajan}");
+                    laWriter.RawOutput(@"\usepackage[ngerman]{babel}");
+                }
+                else
+                {
+                    laWriter.RawOutput(@"\documentclass{scrbook}");
+                    laWriter.RawOutput(@"\usepackage{trajan}");
+                    laWriter.RawOutput(@"\usepackage{babel}");
+                }
+
                 // erfasst man seine Dokumente schon in UTF-8 oder UTF-16 und teilt dies über das inputenc-Paket LaTeX auch mit, 
                 // kann man sowohl deutsche als auch französische Anführungszeichen direkt eingeben. Wie man die Satzzeichen direkt 
                 // über die Tastatur eingibt, ist im Artikel Anführungszeichen in der Wikipedia beschrieben.
@@ -933,7 +953,7 @@ namespace MaiorumSeries.LaTeXExport
             }
         }
 
-        private static void EnsureMetaDataFile(ILaTeXExportContext context, BookMetaInformation bookMetaInformation)
+        private static BookMetaInformation EnsureMetaDataFile(ILaTeXExportContext context, BookMetaInformation bookMetaInformation)
         {
             string fileName = "BookMetaInformation.txt";
             string path = Path.Combine(context.OutputPath, fileName);
@@ -942,6 +962,7 @@ namespace MaiorumSeries.LaTeXExport
                 IoHelper<BookMetaInformation>.Write(bookMetaInformation, path);
             }
             bookMetaInformation = IoHelper<BookMetaInformation>.Read(path);
+            return bookMetaInformation;
         }
 
         public static void WriteLaTexBookTitlePage(ILaTeXExportContext context, Model model, BookMetaInformation bookMetaInformation, LaTexWriter writer)
@@ -997,7 +1018,6 @@ namespace MaiorumSeries.LaTeXExport
             writer.RawOutput(@"\vfill % Fill the rest of the page with whitespace");
             writer.RawOutput(@"\end{titlepage}");
             EnsureLogoFile(context);
-            EnsureMetaDataFile(context, bookMetaInformation);
         }
 
         public static void WriteLaTexBookCitationPage(ILaTeXExportContext context, Model model, LaTexWriter writer)
@@ -1065,10 +1085,10 @@ namespace MaiorumSeries.LaTeXExport
 
             IncludeChapters(context, model, writer);
 
-            writer.Header1("Vorfahren");
+            writer.Header1(Strings.ResourceManager.GetString("Ancestors", context.Culture) );
 
             writer.RawOutput(@"\newpage{}");
-            writer.Header2("Haupt Person");
+            writer.Header2(Strings.ResourceManager.GetString("MainPerson", context.Culture));
 
             WriteIndividual(context, model, writer, individualRecord);
 
@@ -1315,7 +1335,7 @@ namespace MaiorumSeries.LaTeXExport
 
         private static void WriteTribe(ILaTeXExportContext context, Model model, LaTexWriter writer, TribeInfo tribe)
         {
-            writer.Header2("Sippe von " + tribe.Individual.GetDisplayName());
+            writer.Header2(Strings.ResourceManager.GetString("ClanFrom", context.Culture)  + tribe.Individual.GetDisplayName());
 
             IndividualRecord current = tribe.Individual;
 
@@ -1323,7 +1343,7 @@ namespace MaiorumSeries.LaTeXExport
 
             do
             {
-                writer.Header3("Nachfahren von " + current.GetDisplayName());
+                writer.Header3(Strings.ResourceManager.GetString("DescendantsFrom", context.Culture) + current.GetDisplayName());
                 current = WriteTribeChunk(context, model, writer, descendants, current);
             } while (current != null);
 
@@ -1341,14 +1361,13 @@ namespace MaiorumSeries.LaTeXExport
 
             if (foundNewDetails)
             {
-                writer.Header2("Nachfahren der Sippe von " + tribe.Individual.GetDisplayName());
+                writer.Header2(Strings.ResourceManager.GetString("ClanDescendantsFrom ", context.Culture) + tribe.Individual.GetDisplayName());
 
                 foreach (var indi in descendants)
                 {
                     WriteIndividualWhenNotWritten(context, model, writer, indi);
                 }
             }
-
         }
 
         private static void WriteGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
@@ -1359,18 +1378,17 @@ namespace MaiorumSeries.LaTeXExport
 
             foreach (var key in generations.Generations.Keys)
             {
-                writer.Header2("Generation " + key.ToString());
+                writer.Header2(Strings.ResourceManager.GetString("Generation", context.Culture) + " " + key.ToString());
 
                 foreach (var i in generations.Generations[key])
                 {
                     WriteIndividual(context, model, writer, i.Individual);
                 }
-
             }
 
             if (context.WriteTribe)
             {
-                writer.Header1("Sippen");
+                writer.Header1(Strings.ResourceManager.GetString("Clans", context.Culture));
 
                 List<TribeInfo> infos = new List<TribeInfo>();
                 foreach (var tribe in generations.TribeCandidates)

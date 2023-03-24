@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MaiorumSeries.LaTeXExport</AssemblyName>
     <RootNamespace>MaiorumSeries.LaTeXExport</RootNamespace>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,13 @@
   <ItemGroup>
     <EmbeddedResource Include="res\logo.png" />
     <EmbeddedResource Include="res\preface.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

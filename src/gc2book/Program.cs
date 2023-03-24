@@ -85,6 +85,10 @@ namespace gc2book
             [Option('n', "name", Required = true, Default = "John Doe", HelpText = "Set the name of the main person.")]
             public string Name { get; set; } = "John Doe";
 
+            [Option('c', "culture", Required = false, Default = "en-US", HelpText = "Set the language culture of output.")]
+            public string Culture { get; set; } = "en-US";
+
+
             [Option('g', "gedcomfile", Required = false, HelpText = "Set gedcom input file name .")]
             public string? InputFileName { get; set; }
 
@@ -120,7 +124,8 @@ namespace gc2book
                       var model = parser.Parse(parserContext, fileName);
 
                       ConsoleLaTeXExportContext laTeXExportContext = new ConsoleLaTeXExportContext();
-                      laTeXExportContext.Culture = new CultureInfo("de-DE");
+//                      laTeXExportContext.Culture = new CultureInfo("de-DE");
+                      laTeXExportContext.Culture = new CultureInfo(o.Culture);
                       laTeXExportContext.OutputName = o.OutputName;
                       laTeXExportContext.OutputPath = o.OutputPath;
                       //                      laTeXExportContext.Culture = model.GetCultureInfo();

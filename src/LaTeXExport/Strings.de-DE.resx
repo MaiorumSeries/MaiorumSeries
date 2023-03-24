@@ -180,4 +180,25 @@
   <data name="Sources" xml:space="preserve">
     <value>Quellen</value>
   </data>
+  <data name="Ancestors" xml:space="preserve">
+    <value>Vorfahren</value>
+  </data>
+  <data name="ClanDescendantsFrom" xml:space="preserve">
+    <value>Nachfahren der Sippe von </value>
+  </data>
+  <data name="ClanFrom" xml:space="preserve">
+    <value>Sippe von </value>
+  </data>
+  <data name="Clans" xml:space="preserve">
+    <value>Sippen</value>
+  </data>
+  <data name="DescendantsFrom" xml:space="preserve">
+    <value>Nachfahren von </value>
+  </data>
+  <data name="Generation" xml:space="preserve">
+    <value>Generation</value>
+  </data>
+  <data name="MainPerson" xml:space="preserve">
+    <value>Haupt Person</value>
+  </data>
 </root>

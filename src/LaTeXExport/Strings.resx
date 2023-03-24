@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Ancestors" xml:space="preserve">
+    <value>Ancestors</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
@@ -131,6 +134,18 @@
     <value>Do what you think is interesting do something that you think is fun and worthwhile, because otherwise you won’t do it well anyway.</value>
     <comment>Jede Generation lächelt über die Väter, lacht über die Großväter und bewundert die Urgroßväter.</comment>
   </data>
+  <data name="ClanDescendantsFrom" xml:space="preserve">
+    <value>Tribe Descendants from</value>
+  </data>
+  <data name="ClanFrom" xml:space="preserve">
+    <value>Tribe from </value>
+  </data>
+  <data name="Clans" xml:space="preserve">
+    <value>Tribes</value>
+  </data>
+  <data name="DescendantsFrom" xml:space="preserve">
+    <value>Descendants from</value>
+  </data>
   <data name="Family" xml:space="preserve">
     <value>Family</value>
   </data>
@@ -143,6 +158,9 @@
   <data name="Generated" xml:space="preserve">
     <value>Generated</value>
   </data>
+  <data name="Generation" xml:space="preserve">
+    <value>Generation</value>
+  </data>
   <data name="History" xml:space="preserve">
     <value>History</value>
   </data>
@@ -151,6 +169,9 @@
   </data>
   <data name="IndexOfNames" xml:space="preserve">
     <value>Index of names</value>
+  </data>
+  <data name="MainPerson" xml:space="preserve">
+    <value>Main Person</value>
   </data>
   <data name="Media" xml:space="preserve">
     <value>Image</value>

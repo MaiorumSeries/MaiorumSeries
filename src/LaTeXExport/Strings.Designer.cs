@@ -61,6 +61,15 @@ namespace MaiorumSeries.LaTeXExport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ancestors.
+        /// </summary>
+        internal static string Ancestors {
+            get {
+                return ResourceManager.GetString("Ancestors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         internal static string Author {
@@ -93,6 +102,42 @@ namespace MaiorumSeries.LaTeXExport {
         internal static string CiteText {
             get {
                 return ResourceManager.GetString("CiteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tribe Descendants from.
+        /// </summary>
+        internal static string ClanDescendantsFrom {
+            get {
+                return ResourceManager.GetString("ClanDescendantsFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tribe from .
+        /// </summary>
+        internal static string ClanFrom {
+            get {
+                return ResourceManager.GetString("ClanFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tribes.
+        /// </summary>
+        internal static string Clans {
+            get {
+                return ResourceManager.GetString("Clans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descendants from.
+        /// </summary>
+        internal static string DescendantsFrom {
+            get {
+                return ResourceManager.GetString("DescendantsFrom", resourceCulture);
             }
         }
         
@@ -133,6 +178,15 @@ namespace MaiorumSeries.LaTeXExport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generation.
+        /// </summary>
+        internal static string Generation {
+            get {
+                return ResourceManager.GetString("Generation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to History.
         /// </summary>
         internal static string History {
@@ -156,6 +210,15 @@ namespace MaiorumSeries.LaTeXExport {
         internal static string IndexOfNames {
             get {
                 return ResourceManager.GetString("IndexOfNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Person.
+        /// </summary>
+        internal static string MainPerson {
+            get {
+                return ResourceManager.GetString("MainPerson", resourceCulture);
             }
         }
         
