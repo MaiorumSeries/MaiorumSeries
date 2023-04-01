@@ -88,7 +88,6 @@ namespace gc2book
             [Option('c', "culture", Required = false, Default = "en-US", HelpText = "Set the language culture of output.")]
             public string Culture { get; set; } = "en-US";
 
-
             [Option('g', "gedcomfile", Required = false, HelpText = "Set gedcom input file name .")]
             public string? InputFileName { get; set; }
 

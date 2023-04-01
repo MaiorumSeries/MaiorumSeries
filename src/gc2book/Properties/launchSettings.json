@@ -11,6 +11,10 @@
     "Shakespear": {
       "commandName": "Project",
       "commandLineArgs": "-p c:\\work\\books\\Shakespeare -o Shakespeare -n \"Elisabeth Shakespeare\" -g \"\"C:\\Users\\CordB\\source\\repos\\SampleData\\GedComData\\shakespeare.ged\"\""
+    },
+    "version": {
+      "commandName": "Project",
+      "commandLineArgs": "--version"
     }
   }
 }
