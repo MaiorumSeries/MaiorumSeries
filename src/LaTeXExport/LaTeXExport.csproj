@@ -9,6 +9,12 @@
     <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
 
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Compile Remove="Ressources\**" />
     <EmbeddedResource Remove="Ressources\**" />
