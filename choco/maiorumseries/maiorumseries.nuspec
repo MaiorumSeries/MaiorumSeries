@@ -25,7 +25,7 @@
     <!-- If there is a license Url available, it is required for the community feed -->
     <licenseUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/MaiorumSeries/MaiorumSeries</projectSourceUrl>
+    <projectSourceUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/choco/maiorumseries/maiorumseries.nuspec</projectSourceUrl>
     <docsUrl>https://maiorumseries.github.io</docsUrl>
     <!--<mailingListUrl></mailingListUrl>-->
     <!--<bugTrackerUrl></bugTrackerUrl>-->
@@ -36,7 +36,11 @@
     <!-- =============================== -->      
 
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
-    <!--<dependencies>
+    <dependencies>
+      <dependency id="dotnet-6.0-runtime"  />
+      <dependency id="miktex.install"  />
+    </dependencies>
+        <!--<dependencies>
       <dependency id="" version="__MINIMUM_VERSION__" />
       <dependency id="" version="[__EXACT_VERSION__]" />
       <dependency id="" version="[_MIN_VERSION_INCLUSIVE, MAX_VERSION_INCLUSIVE]" />
