@@ -38,7 +38,7 @@
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
     <dependencies>
       <dependency id="dotnet-6.0-runtime"  />
-      <dependency id="miktex.install"  />
+      <!-- <dependency id="miktex"  /> -->
     </dependencies>
         <!--<dependencies>
       <dependency id="" version="__MINIMUM_VERSION__" />
