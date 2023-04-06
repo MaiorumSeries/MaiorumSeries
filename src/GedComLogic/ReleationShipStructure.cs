@@ -10,7 +10,6 @@ namespace MaiorumSeries.GedComLogic
     /// </summary>
     public class ReleationShipStructure
     {
-
         ReleationshipIndividual _proband;
 
         public ReleationShipStructure(ReleationshipIndividual individual)
@@ -23,7 +22,6 @@ namespace MaiorumSeries.GedComLogic
                 return _proband;
             }
         }
-
         public Dictionary<int, Generation> Generations { get; set; } = new Dictionary<int, Generation>();
 
         public List<IndividualRecord> TribeCandidates { get; set; } = new List<IndividualRecord>();

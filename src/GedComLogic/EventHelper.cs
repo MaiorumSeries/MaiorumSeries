@@ -61,25 +61,25 @@ namespace MaiorumSeries.GedComLogic
             switch (eventDetail.Tag)
             {
                 case "BIRT":
-                    item.Description = "Geboren ";
+                    item.Description = Strings.ResourceManager.GetString("Born", cultureInfo);
                     break;
                 case "CHR":
-                    item.Description = "Geboren ";
+                    item.Description = Strings.ResourceManager.GetString("Born", cultureInfo);
                     break;
                 case "BAPM":
-                    item.Description = "Getauft ";
+                    item.Description = Strings.ResourceManager.GetString("Baptized", cultureInfo);
                     break;
                 case "MARR":
-                    item.Description = "Geheiratet ";
+                    item.Description = Strings.ResourceManager.GetString("Married", cultureInfo);
                     break;
                 case "RESI":
-                    item.Description = "Wohnhaft ";
+                    item.Description = Strings.ResourceManager.GetString("Resident", cultureInfo);
                     break;
                 case "DEAT":
-                    item.Description = "Gestorben ";
+                    item.Description = Strings.ResourceManager.GetString("Died", cultureInfo);
                     break;
                 case "BURI":
-                    item.Description = "Beerdigt ";
+                    item.Description = Strings.ResourceManager.GetString("Buried", cultureInfo);
                     break;
                 default:
                     item.Description = eventDetail.Tag;

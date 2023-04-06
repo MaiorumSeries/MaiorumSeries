@@ -61,11 +61,110 @@ namespace MaiorumSeries.GedComLogic {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  and dies on .
+        /// </summary>
+        public static string AndDiedOn {
+            get {
+                return ResourceManager.GetString("AndDiedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baptized .
+        /// </summary>
+        public static string Baptized {
+            get {
+                return ResourceManager.GetString("Baptized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Born .
+        /// </summary>
+        public static string Born {
+            get {
+                return ResourceManager.GetString("Born", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buried .
+        /// </summary>
+        public static string Buried {
+            get {
+                return ResourceManager.GetString("Buried", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Died .
+        /// </summary>
+        public static string Died {
+            get {
+                return ResourceManager.GetString("Died", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  died on .
+        /// </summary>
+        public static string DiedOn {
+            get {
+                return ResourceManager.GetString("DiedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  in .
+        /// </summary>
+        public static string In {
+            get {
+                return ResourceManager.GetString("In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  is by profession .
+        /// </summary>
+        public static string IsByProfession {
+            get {
+                return ResourceManager.GetString("IsByProfession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Married .
+        /// </summary>
+        public static string Married {
+            get {
+                return ResourceManager.GetString("Married", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no display name for the individual.
         /// </summary>
         public static string NoDisplayNameForIndividual {
             get {
                 return ResourceManager.GetString("NoDisplayNameForIndividual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resident .
+        /// </summary>
+        public static string Resident {
+            get {
+                return ResourceManager.GetString("Resident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  was born on .
+        /// </summary>
+        public static string WasBornOn {
+            get {
+                return ResourceManager.GetString("WasBornOn", resourceCulture);
             }
         }
     }

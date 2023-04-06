@@ -14,7 +14,7 @@ namespace MaiorumSeries.GedComLogic
         /// </summary>
         /// <param name="individualRecord"></param>
         /// <returns></returns>
-        public static string GetDisplayName(this IndividualRecord individualRecord)
+        public static string GetDisplayName(this IndividualRecord individualRecord, CultureInfo cultureInfo)
         {
             var strFormal = new StringBuilder();
 
@@ -40,7 +40,7 @@ namespace MaiorumSeries.GedComLogic
             }
             else
             {
-                strFormal.Append(Strings.NoDisplayNameForIndividual);
+                strFormal.Append(Strings.ResourceManager.GetString("NoDisplayNameForIndividual", cultureInfo));
             }
             return strFormal.ToString();
         }
@@ -60,16 +60,16 @@ namespace MaiorumSeries.GedComLogic
                 var title = individualRecord.Events.Find(x => x.Tag == "TITL");
                 if (title != null)
                 {
-                    str.Append(GetDisplayName(individualRecord));
-                    str.Append(" ist von Beruf ");
+                    str.Append(GetDisplayName(individualRecord, cultureInfo));
+                    str.Append(Strings.ResourceManager.GetString("IsByProfession", cultureInfo) );
                     str.Append(title.Value);
                     str.Append(". ");
                 }
                 var occu = individualRecord.Events.Find(x => x.Tag == "OCCU");
                 if (occu != null)
                 {
-                    str.Append(GetDisplayName(individualRecord));
-                    str.Append(" ist von Beruf ");
+                    str.Append(GetDisplayName(individualRecord, cultureInfo));
+                    str.Append(Strings.ResourceManager.GetString("IsByProfession", cultureInfo));
                     str.Append(occu.Value);
                     str.Append(". ");
                 }
@@ -79,21 +79,21 @@ namespace MaiorumSeries.GedComLogic
 
                 if ((birth != null) && (death != null))
                 {
-                    str.Append(GetDisplayName(individualRecord));
-                    str.Append(" ist geboren am ");
+                    str.Append(GetDisplayName(individualRecord, cultureInfo));
+                    str.Append(Strings.ResourceManager.GetString("WasBornOn", cultureInfo));
                     str.Append(birth.GetDisplayDate(cultureInfo));
                     string place = birth.GetDisplayPlace();
                     if (!string.IsNullOrEmpty(place))
                     {
-                        str.Append(" in ");
+                        str.Append(Strings.ResourceManager.GetString("In", cultureInfo));
                         str.Append(place);
                     }
-                    str.Append(" und gestorben am  ");
+                    str.Append(Strings.ResourceManager.GetString("AndDiedOn", cultureInfo));
                     str.Append(death.GetDisplayDate(cultureInfo));
                     string place2 = death.GetDisplayPlace();
                     if (!string.IsNullOrEmpty(place2))
                     {
-                        str.Append(" in ");
+                        str.Append(Strings.ResourceManager.GetString("In", cultureInfo));
                         str.Append(place2);
                     }
                     str.Append(". ");
@@ -101,26 +101,26 @@ namespace MaiorumSeries.GedComLogic
                 }
                 else if (birth != null)
                 {
-                    str.Append(GetDisplayName(individualRecord));
-                    str.Append(" ist geboren am ");
+                    str.Append(GetDisplayName(individualRecord, cultureInfo));
+                    str.Append(Strings.ResourceManager.GetString("WasBornOn", cultureInfo));
                     str.Append(birth.GetDisplayDate (cultureInfo));
                     string place = birth.GetDisplayPlace();
                     if (!string.IsNullOrEmpty (place))
                     {
-                        str.Append(" in ");
+                        str.Append(Strings.ResourceManager.GetString("In", cultureInfo));
                         str.Append(place);
                     }
                     str.Append(". ");
                 }
                 else if (death != null)
                 {
-                    str.Append(GetDisplayName(individualRecord));
-                    str.Append(" ist gestorben am ");
+                    str.Append(GetDisplayName(individualRecord, cultureInfo));
+                    str.Append(Strings.ResourceManager.GetString("DiedOn", cultureInfo));
                     str.Append(death.GetDisplayDate(cultureInfo));
                     string place = death.GetDisplayPlace();
                     if (!string.IsNullOrEmpty(place))
                     {
-                        str.Append(" in ");
+                        str.Append(Strings.ResourceManager.GetString("In", cultureInfo));
                         str.Append(place);
                     }
                     str.Append(". ");

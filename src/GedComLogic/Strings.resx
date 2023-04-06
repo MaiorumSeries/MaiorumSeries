@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AndDiedOn" xml:space="preserve">
+    <value> and dies on </value>
+  </data>
+  <data name="Baptized" xml:space="preserve">
+    <value>Baptized </value>
+  </data>
+  <data name="Born" xml:space="preserve">
+    <value>Born </value>
+  </data>
+  <data name="Buried" xml:space="preserve">
+    <value>Buried </value>
+  </data>
+  <data name="Died" xml:space="preserve">
+    <value>Died </value>
+  </data>
+  <data name="DiedOn" xml:space="preserve">
+    <value> died on </value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value> in </value>
+  </data>
+  <data name="IsByProfession" xml:space="preserve">
+    <value> is by profession </value>
+  </data>
+  <data name="Married" xml:space="preserve">
+    <value>Married </value>
+  </data>
   <data name="NoDisplayNameForIndividual" xml:space="preserve">
     <value>There is no display name for the individual</value>
+  </data>
+  <data name="Resident" xml:space="preserve">
+    <value>Resident </value>
+  </data>
+  <data name="WasBornOn" xml:space="preserve">
+    <value> was born on </value>
   </data>
 </root>

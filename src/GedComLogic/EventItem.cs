@@ -9,14 +9,12 @@ namespace MaiorumSeries.GedComLogic
     /// </summary>
     public class EventItem
     {
-
         public string Tag { get; set; }
 
         /// <summary>
         /// Best known Date Time representation 
         /// </summary>
         public DateTime Date { get; set; }
-
 
         /// <summary>
         /// Date text representation 

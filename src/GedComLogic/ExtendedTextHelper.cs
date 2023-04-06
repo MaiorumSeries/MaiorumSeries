@@ -11,8 +11,6 @@ namespace MaiorumSeries.GedComLogic
         public static string GetText(this ExtendedTextRecord text, CultureInfo cultureInfo)
         {
             var str = new StringBuilder();
-
-
             str.Append(text.Value);
 
             foreach (var l in text.Lines)

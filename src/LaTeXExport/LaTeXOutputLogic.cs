@@ -186,7 +186,7 @@ namespace MaiorumSeries.LaTeXExport
         private static void WriteIndividual(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
         {
             // Write the heading 
-            writer.Header3(writer.ToTeX(individualRecord.GetDisplayName()));
+            writer.Header3(writer.ToTeX(individualRecord.GetDisplayName(context.Culture)));
             writer.Label(individualRecord.XrefId);
 
             // Remember, that this indiviual has been written
@@ -275,7 +275,7 @@ namespace MaiorumSeries.LaTeXExport
                         if (mmr != null)
                         {
                             var path = mmr.FileName.Value;
-                            string title = individualRecord.GetDisplayName();
+                            string title = individualRecord.GetDisplayName(context.Culture);
                             if (!string.IsNullOrEmpty(mmr.Title))
                             {
                                 title = mmr.Title;
@@ -307,7 +307,7 @@ namespace MaiorumSeries.LaTeXExport
                                     if ((imageCount % 4) == 0)
                                     {
                                         pendingHeader = true;
-                                        writer.RawOutput(@"\caption{" + Strings.ResourceManager.GetString("MediaFor", context.Culture) + individualRecord.GetDisplayName() + " " + sectionCount++ + "}");
+                                        writer.RawOutput(@"\caption{" + Strings.ResourceManager.GetString("MediaFor", context.Culture) + individualRecord.GetDisplayName(context.Culture) + " " + sectionCount++ + "}");
                                         writer.RawOutput(@"\centering");
                                         writer.RawOutput(@"\end{figure}");
                                         //                                        writer.RawOutput(@"\afterpage{\clearpage}");
@@ -325,7 +325,7 @@ namespace MaiorumSeries.LaTeXExport
                 }
                 if (pendingFooter)
                 {
-                    writer.RawOutput(@"\caption{" + Strings.ResourceManager.GetString("MediaFor", context.Culture) + individualRecord.GetDisplayName() + " " + sectionCount++ + "}");
+                    writer.RawOutput(@"\caption{" + Strings.ResourceManager.GetString("MediaFor", context.Culture) + individualRecord.GetDisplayName(context.Culture) + " " + sectionCount++ + "}");
                     writer.RawOutput(@"\centering");
                     writer.RawOutput(@"\end{figure}");
                 }
@@ -344,7 +344,7 @@ namespace MaiorumSeries.LaTeXExport
                 writer.Header4(Strings.ResourceManager.GetString("PersonalEvents", context.Culture));
                 foreach (var e in commonEventList)
                 {
-                    WriteCommonEvent(context, model, writer, e, individualRecord.GetDisplayName());
+                    WriteCommonEvent(context, model, writer, e, individualRecord.GetDisplayName(context.Culture));
                 }
             }
             #endregion 
@@ -787,7 +787,7 @@ namespace MaiorumSeries.LaTeXExport
 
 
             //writer.Text(record.GetDisplayName());
-            writer.HyperReference(record.XrefId, record.GetDisplayName());
+            writer.HyperReference(record.XrefId, record.GetDisplayName(context.Culture));
 
             writer.RawOutput(@"\newline ");
 
@@ -1188,7 +1188,7 @@ namespace MaiorumSeries.LaTeXExport
             }
             writer.RawOutput(builder.ToString());
 
-            writer.HyperReference(from.XrefId, from.GetDisplayName());
+            writer.HyperReference(from.XrefId, from.GetDisplayName(context.Culture));
 
             builder = new StringBuilder();
             builder.Append(@" ");
@@ -1335,7 +1335,7 @@ namespace MaiorumSeries.LaTeXExport
 
         private static void WriteTribe(ILaTeXExportContext context, Model model, LaTexWriter writer, TribeInfo tribe)
         {
-            writer.Header2(Strings.ResourceManager.GetString("ClanFrom", context.Culture)  + tribe.Individual.GetDisplayName());
+            writer.Header2(Strings.ResourceManager.GetString("ClanFrom", context.Culture)  + tribe.Individual.GetDisplayName(context.Culture));
 
             IndividualRecord current = tribe.Individual;
 
@@ -1343,7 +1343,7 @@ namespace MaiorumSeries.LaTeXExport
 
             do
             {
-                writer.Header3(Strings.ResourceManager.GetString("DescendantsFrom", context.Culture) + current.GetDisplayName());
+                writer.Header3(Strings.ResourceManager.GetString("DescendantsFrom", context.Culture) + current.GetDisplayName(context.Culture));
                 current = WriteTribeChunk(context, model, writer, descendants, current);
             } while (current != null);
 
@@ -1361,7 +1361,7 @@ namespace MaiorumSeries.LaTeXExport
 
             if (foundNewDetails)
             {
-                writer.Header2(Strings.ResourceManager.GetString("ClanDescendantsFrom ", context.Culture) + tribe.Individual.GetDisplayName());
+                writer.Header2(Strings.ResourceManager.GetString("ClanDescendantsFrom ", context.Culture) + tribe.Individual.GetDisplayName(context.Culture));
 
                 foreach (var indi in descendants)
                 {

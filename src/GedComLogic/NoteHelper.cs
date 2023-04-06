@@ -8,12 +8,8 @@ namespace MaiorumSeries.GedComLogic
 {
     public static class NoteHelper
     {
-
-
         public static List<string> GetNoteTextList(this NoteRecord noteDetail, Model model, CultureInfo cultureInfo)
         {
-
-
             List<string> list = new List<string>();
             NoteRecord note = noteDetail;
             if (!string.IsNullOrEmpty (noteDetail.XrefId))
