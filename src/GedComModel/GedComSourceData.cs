@@ -28,7 +28,7 @@ namespace MaiorumSeries.GedComModel
         /// Name of the business, corporation, or person that produced or commissioned the product
         /// </summary>
         [GedComTag("CORP")]
-        public string Corporation { get; set; }
+        public CorporationData Corporation { get; set; }
 
         /// <summary>
         /// Unknown tag from MyHeritage Family Tree Builder

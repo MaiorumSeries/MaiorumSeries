@@ -1085,16 +1085,24 @@ namespace MaiorumSeries.LaTeXExport
 
             IncludeChapters(context, model, writer);
 
-            writer.Header1(Strings.ResourceManager.GetString("Ancestors", context.Culture) );
+            writer.Header1(Strings.ResourceManager.GetString("MainPerson", context.Culture));
 
             writer.RawOutput(@"\newpage{}");
-            writer.Header2(Strings.ResourceManager.GetString("MainPerson", context.Culture));
-
+            writer.Header2(Strings.ResourceManager.GetString("MainPersonAndFamily", context.Culture));
+            
             WriteIndividual(context, model, writer, individualRecord);
+            WriteDescendantsGenerations (context, model, writer, individualRecord, true);
 
             writer.RawOutput(@"\newpage{}");
 
-            WriteGenerations(context, model, writer, individualRecord);
+            if (HasDescendantsGenerations (context, model, individualRecord))
+            {
+                writer.Header1(Strings.ResourceManager.GetString("Descendants", context.Culture));
+                WriteDescendantsGenerations(context, model, writer, individualRecord, false);
+            }
+            writer.Header1(Strings.ResourceManager.GetString("Ancestors", context.Culture));
+
+            WriteAncestorsGenerations(context, model, writer, individualRecord);
 
             writer.RawOutput(@"\appendix");
             writer.RawOutput(@"\listoffigures");
@@ -1140,8 +1148,18 @@ namespace MaiorumSeries.LaTeXExport
             writer.RawOutput(@"\begin{raggedright}");
             writer.RawOutput(@"{\Large ");
 
-            writer.RawOutput(@"\textit{" + "GedCom Date" + " " + model.Head.Date.Value.ToString() + @"}\\");
-            writer.RawOutput(@"\textit{" + "GedCom File" + " " + model.Head.FileName + @"}\\");
+            writer.RawOutput(@"\textit{" + "GedCom Date   " + " " + model.Head.Date.Value.ToString() + @"}\\");
+            writer.RawOutput(@"\textit{" + "GedCom File   " + " " + model.Head.FileName + @"}\\");
+
+            if (model.Head.GedComVersion != null && !string.IsNullOrEmpty (model.Head.GedComVersion.Version))
+            {
+                writer.RawOutput(@"\textit{" + "GedCom Version" + " " + model.Head.GedComVersion.Version + @"}\\");
+            }
+            if (model.Head.GedComSource != null && !string.IsNullOrEmpty(model.Head.GedComSource.Name))
+            {
+                writer.RawOutput(@"\textit{" + "GedCom Source " + " " + model.Head.GedComSource.Name + @"}\\");
+            }
+
             writer.RawOutput(@"\textit{" + name + " " + version + @"}\\");
             writer.RawOutput(@"\textit{" + Strings.ResourceManager.GetString("Generated", context.Culture) + " " + DateTime.Now.ToShortDateString() + @"}\\");
             writer.RawOutput(@"}");
@@ -1370,11 +1388,11 @@ namespace MaiorumSeries.LaTeXExport
             }
         }
 
-        private static void WriteGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
+        private static void WriteAncestorsGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
         {
             var generations = new ReleationShipStructure(new ReleationshipIndividual(individualRecord));
 
-            generations.Build(model);
+            generations.BuildAncestors(model);
 
             foreach (var key in generations.Generations.Keys)
             {
@@ -1410,6 +1428,50 @@ namespace MaiorumSeries.LaTeXExport
             }
 
         }
+
+        private static bool HasDescendantsGenerations(ILaTeXExportContext context, Model model, IndividualRecord individualRecord)
+        {
+            var generations = new ReleationShipStructure(new ReleationshipIndividual(individualRecord));
+            generations.BuildDescendants(model);
+
+            foreach (var key in generations.Generations.Keys)
+            {
+                if (key != 0) return true;
+            }
+            return false;
+        }
+
+
+        private static void WriteDescendantsGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord, bool onlyGenerationZero)
+        {
+            var generations = new ReleationShipStructure(new ReleationshipIndividual(individualRecord));
+
+            generations.BuildDescendants(model);
+
+            foreach (var key in generations.Generations.Keys)
+            {
+
+                if (onlyGenerationZero && key != 0)
+                {
+                    continue;
+                }
+                if (!onlyGenerationZero && key == 0)
+                {
+                    continue;
+                }
+
+                if (!onlyGenerationZero)
+                {
+                    writer.Header2(Strings.ResourceManager.GetString("Generation", context.Culture) + " " + key.ToString());
+                }
+
+                foreach (var i in generations.Generations[key])
+                {
+                    WriteIndividual(context, model, writer, i.Individual);
+                }
+            }
+        }
+
         private static string GetPrefaceText(ILaTeXExportContext context)
         {
             string preface = Strings.ResourceManager.GetString("PrefaceText", context.Culture);

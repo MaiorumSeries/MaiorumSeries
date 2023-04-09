@@ -22,9 +22,14 @@ namespace gc2book
             public int ReadLines { get; set; }
             public int ProcessedLine { get; set; }
 
-            public void WriteLine(string message, params string[] args)
+            public void WriteError(string id, string message, params string[] args)
             {
-                Console.WriteLine(string.Format(message, args));
+                Console.WriteLine("ERR (" + id + "): " + string.Format(message, args));
+            }
+
+            public void WriteWarning(string id, string message, params string[] args)
+            {
+                Console.WriteLine("WRN (" +id + "): " + string.Format(message, args));
             }
         }
 
@@ -111,6 +116,7 @@ namespace gc2book
                       var parserContext = new ConsoleParserContext();
 
                       parserContext.Verbose = o.Verbose;
+                      parserContext.Debug = o.Debug;
 
                       if (string.IsNullOrEmpty (o.InputFileName))
                       {
@@ -145,7 +151,7 @@ namespace gc2book
 
                       MaiorumSeries.LaTeXExport.LaTeXOutputLogic.WriteLaTexBook(laTeXExportContext, model, bookMetaInformation, forPersonId);
 
-                      Console.WriteLine("Processed " + parserContext.ProcessedLine + "/" + parserContext.ReadLines);
+                      Console.WriteLine("Processed lines " + parserContext.ProcessedLine + "/" + parserContext.ReadLines);
                   });
             return exitCode;
         }

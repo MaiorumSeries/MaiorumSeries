@@ -201,4 +201,10 @@
   <data name="MainPerson" xml:space="preserve">
     <value>Haupt Person</value>
   </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Nachfahren</value>
+  </data>
+  <data name="MainPersonAndFamily" xml:space="preserve">
+    <value>Haupt Person und Familie</value>
+  </data>
 </root>

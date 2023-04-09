@@ -143,6 +143,9 @@
   <data name="Clans" xml:space="preserve">
     <value>Tribes</value>
   </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Descendants</value>
+  </data>
   <data name="DescendantsFrom" xml:space="preserve">
     <value>Descendants from</value>
   </data>
@@ -172,6 +175,9 @@
   </data>
   <data name="MainPerson" xml:space="preserve">
     <value>Main Person</value>
+  </data>
+  <data name="MainPersonAndFamily" xml:space="preserve">
+    <value>Main Person and Family</value>
   </data>
   <data name="Media" xml:space="preserve">
     <value>Image</value>

@@ -90,6 +90,12 @@ namespace MaiorumSeries.GedComModel
         [GedComTag("_UPD")]
         public string _UPD { get; set; }
 
+        /// <summary>
+        /// ID Tag from Family Search Tree ID
+        /// </summary>
+        [GedComTag("_FSFTID")]
+        public string FSFTID { get; set; }
+
         [GedComTag("CHAN")]
         public ChangeRecord ChangeRecord { get; set; }
 

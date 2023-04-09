@@ -10,7 +10,7 @@
     },
     "Shakespear": {
       "commandName": "Project",
-      "commandLineArgs": "-p c:\\work\\books\\Shakespeare -o Shakespeare -n \"Elisabeth Shakespeare\" -g \"\"C:\\Users\\CordB\\source\\repos\\SampleData\\GedComData\\shakespeare.ged\"\""
+      "commandLineArgs": "-p c:\\work\\books\\Shakespeare -o Shakespeare -n \"William Shakespeare\" -g \"\"C:\\Users\\CordB\\source\\repos\\SampleData\\GedComData\\shakespeare.ged\"\" -d true"
     },
     "version": {
       "commandName": "Project",

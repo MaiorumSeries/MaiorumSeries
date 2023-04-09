@@ -26,7 +26,7 @@ namespace MaiorumSeries.GedComLogic
 
         public List<IndividualRecord> TribeCandidates { get; set; } = new List<IndividualRecord>();
 
-        private void Build(Model model, ReleationshipIndividual from, int generation)
+        private void BuildAncestors(Model model, ReleationshipIndividual from, int generation)
         {
             IndividualRecord father = null;
             IndividualRecord mother = null;
@@ -56,13 +56,13 @@ namespace MaiorumSeries.GedComLogic
                     {
                         var fatherRecord = from.GetAsFather(father);
                         AddInGeneration(generation + 1, fatherRecord);
-                        Build(model, fatherRecord, generation + 1);
+                        BuildAncestors(model, fatherRecord, generation + 1);
                     }
                     if (mother != null)
                     {
                         var motherRecord = from.GetAsMother(mother);
                         AddInGeneration(generation + 1, motherRecord);
-                        Build(model, motherRecord, generation + 1);
+                        BuildAncestors(model, motherRecord, generation + 1);
                     }
                 }
  
@@ -83,6 +83,47 @@ namespace MaiorumSeries.GedComLogic
             }
         }
 
+        private void BuildDescendants(Model model, ReleationshipIndividual from, int generation)
+        {
+            foreach (var spouseTo in from.Individual.SpouseTo)
+            {
+                var relationShip = model.Families.Find(x => x.XrefId == spouseTo.Value);
+
+                if (relationShip != null)
+                {
+                    #region Write the spouse if available 
+                    IndividualRecord spouse = null;
+
+                    if ((relationShip.Wife != null) && (relationShip.Wife.Value != from.Individual.XrefId))
+                    {
+                        spouse = model.Individuals.Find(x => x.XrefId == relationShip.Wife.Value);
+                    }
+                    if ((relationShip.Husband != null) && (relationShip.Husband.Value != from.Individual.XrefId))
+                    {
+                        spouse = model.Individuals.Find(x => x.XrefId == relationShip.Husband.Value);
+                    }
+
+                    if (spouse != null)
+                    {
+                        AddInGeneration(generation, from.GetAsSpouse (spouse));
+                    }
+                    #endregion
+
+                    // Dive into children
+
+                    foreach (var childReference in relationShip.Children)
+                    {
+                        var child = model.Individuals.Find(x => x.XrefId == childReference.Value);
+                        if (child != null)
+                        {
+                            var childRecord = from.GetAsChild(child);
+                            AddInGeneration(generation + 1, childRecord);
+                            BuildDescendants (model, childRecord, generation + 1);
+                        }
+                    }
+                }
+            }
+        }
         private void AddInGeneration(int generation, ReleationshipIndividual record)
         {
             if (!Generations.ContainsKey (generation))
@@ -92,9 +133,15 @@ namespace MaiorumSeries.GedComLogic
             Generations[generation].Add(record);
         }
 
-        public void Build (Model model)
+        public void BuildAncestors (Model model)
         {
-            Build(model, Proband, 0);
+            BuildAncestors(model, Proband, 0);
+
+        }
+
+        public void BuildDescendants(Model model)
+        {
+            BuildDescendants(model, Proband, 0);
 
         }
     }

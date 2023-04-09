@@ -54,6 +54,12 @@ namespace MaiorumSeries.GedComModel
         [GedComTag("AUTH")]
         public string Authority { get; set; }
 
+        /// <summary>
+        /// The name property is not part of the GEDCOM 5.5.1 Spec, but written by RootMagic.
+        /// </summary>
+        [GedComTag("NAME")]
+        public string Name { get; set; }
+
         [GedComTag("OBJE")]
         public List<MultimediaRecord> Media { get; set; } = new List<MultimediaRecord>();
 

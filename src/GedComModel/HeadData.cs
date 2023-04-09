@@ -75,7 +75,7 @@ namespace MaiorumSeries.GedComModel
         /// be unique from any other product. Spaces within the name must be substituted with a 0x5F (underscore _) 
         /// so as to create one word
         /// </summary>
-        [GedComTag("SOUR")]
+        [GedComTag("HEAD.SOUR")]
         public GedComSourceData GedComSource { get; set; }
 
 

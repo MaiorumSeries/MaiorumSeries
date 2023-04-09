@@ -34,6 +34,8 @@ namespace MaiorumSeries.GedComParser
         /// </summary>
         int ProcessedLine { get; set; }
 
-        void WriteLine(string message, params string [] args);
+        void WriteWarning(string id, string message, params string[] args);
+        void WriteError(string id, string message, params string[] args);
+
     }
 }

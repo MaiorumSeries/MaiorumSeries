@@ -48,6 +48,17 @@ namespace MaiorumSeries.GedComLogic
             result.predecessorId = predecessorId * 2 + 1;
             return result;
         }
+        public ReleationshipIndividual GetAsSpouse(IndividualRecord spouse)
+        {
+            var result = new ReleationshipIndividual(spouse);
+            return result;
+        }
+
+        public ReleationshipIndividual GetAsChild(IndividualRecord child)
+        {
+            var result = new ReleationshipIndividual(child);
+            return result;
+        }
 
         /// <summary>
         /// Get the String representation of the 

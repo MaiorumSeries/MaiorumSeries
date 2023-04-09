@@ -141,6 +141,9 @@
   <data name="IsByProfession" xml:space="preserve">
     <value> ist von Beruf </value>
   </data>
+  <data name="MainPersonAndFamily" xml:space="preserve">
+    <value />
+  </data>
   <data name="Married" xml:space="preserve">
     <value>Verheiratet </value>
   </data>

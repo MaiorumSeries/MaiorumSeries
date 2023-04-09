@@ -31,7 +31,7 @@ namespace MaiorumSeries.GedComParser
             using (StreamReader file = new StreamReader(fileName, true))
             {
 
-                context.WriteLine("The file {0} has Encoding: {1}", fileName, file.CurrentEncoding.ToString());
+                //context.WriteLine("The file {0} has Encoding: {1}", fileName, file.CurrentEncoding.ToString());
 
                 context.Line = 0;
                 string ln;
@@ -43,7 +43,7 @@ namespace MaiorumSeries.GedComParser
 
                 while ((ln = file.ReadLine()) != null)
                 {
-                    var token = GetToken(ln);
+                    var token = GetToken(ln, lastToken);
                     context.ReadLines++;
                     var newRecord = token.GetRecord();
                     //Console.WriteLine(token.ToString());
@@ -84,15 +84,11 @@ namespace MaiorumSeries.GedComParser
                     {
                         throw new ApplicationException($"Level has illigal value {token.Level} in line {context.Line}");
                     }
-              
-
                     context.Line++;
                     lastToken = token;
                     currentLevel = token.Level;
-                    
                 }
                 file.Close();
-                Console.WriteLine($"File has {context.Line} lines.");
             }
             return modelRecord;
         }
@@ -122,6 +118,12 @@ namespace MaiorumSeries.GedComParser
                     if (attr != null)
                     {
                         if (attr.Tags.Contains (record.Tag))
+                        {
+                            targetProperty = p;
+                            break;
+                        }
+                        if ((!string.IsNullOrEmpty (baseRecord.Tag)) && 
+                            (attr.Tags.Contains(baseRecord.Tag + "." + record.Tag)))
                         {
                             targetProperty = p;
                             break;
@@ -186,7 +188,7 @@ namespace MaiorumSeries.GedComParser
                             {
                                 // Modeling error. There are sub records, while this is mapped to a simple string. 
                                 // Something is wrong here with the typed model
-                                context.WriteLine($"{context.Line} In the record {baseRecord.Tag} the mapped typed record {type.Name} is mapping to a property {targetProperty.Name} which does not allow to map the sub records");
+                                context.WriteError(Errors.GCP1000.ToString(),  $"{context.Line} In the record {baseRecord.Tag} the mapped typed record {type.Name} is mapping to a property {targetProperty.Name} which does not allow to map the sub records");
                             }
                             processed = true;
                         }
@@ -212,7 +214,8 @@ namespace MaiorumSeries.GedComParser
                     }
                     else
                     {
-                        context.WriteLine($"Record {record.Tag} has unprocessed property {targetProperty.Name}");
+                        context.WriteError(Errors.GCP1001.ToString(), 
+                            $"Record {record.Tag} has unprocessed property {targetProperty.Name}");
                     }
                 }
                 else
@@ -220,7 +223,8 @@ namespace MaiorumSeries.GedComParser
                     // Found tag in the file is not covered by the typed model due to missing tags
                     if (context.Debug)
                     {
-                        context.WriteLine($"In the context {baseRecord.Tag} The Tag {record.Tag} is not covered in the model");
+                        context.WriteError(Errors.GCP1002.ToString(),
+                           $"In the context {baseRecord.Tag} The Tag {record.Tag} is not covered in the model");
                     }
                     typedBaseRecord.Records.Add(record);
                 }
@@ -237,7 +241,7 @@ namespace MaiorumSeries.GedComParser
             return model;
         }
 
-        public Token GetToken(string line)
+        public Token GetToken(string line, Token lastToken)
         {
             var token = new Token();
 
@@ -300,6 +304,12 @@ namespace MaiorumSeries.GedComParser
                     buffer.Append(line[idx++]);
                 }
                 token.Tag = buffer.ToString();
+
+                //// Very dirty hack for not unique tag to record mapping in GEDCOM
+                //if ((lastToken?.Tag == "HEAD") && (token.Tag == "SOUR"))
+                //{
+                //    token.Tag = "HEAD.SOUR"; // This is the tag name in the attribute
+                //}
             }
 
             while (idx < line.Length && char.IsWhiteSpace(line[idx]))

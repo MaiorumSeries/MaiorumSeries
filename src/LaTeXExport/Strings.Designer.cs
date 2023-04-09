@@ -133,6 +133,15 @@ namespace MaiorumSeries.LaTeXExport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descendants.
+        /// </summary>
+        internal static string Descendants {
+            get {
+                return ResourceManager.GetString("Descendants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Descendants from.
         /// </summary>
         internal static string DescendantsFrom {
@@ -219,6 +228,15 @@ namespace MaiorumSeries.LaTeXExport {
         internal static string MainPerson {
             get {
                 return ResourceManager.GetString("MainPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Person and Family.
+        /// </summary>
+        internal static string MainPersonAndFamily {
+            get {
+                return ResourceManager.GetString("MainPersonAndFamily", resourceCulture);
             }
         }
         
