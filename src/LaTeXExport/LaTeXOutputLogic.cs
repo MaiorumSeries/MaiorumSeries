@@ -653,6 +653,10 @@ namespace MaiorumSeries.LaTeXExport
                 {
                     return null;
                 }
+                if ((extension.ToLower() == ".html"))
+                {
+                    return null;
+                }
                 if ((extension.ToLower() == ".bmp") || (extension.ToLower() == ".tif"))
                 {
                     string newFile = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + ".png");

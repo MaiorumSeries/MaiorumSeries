@@ -26,6 +26,12 @@ namespace MaiorumSeries.GedComModel
         public string Format { get; set; }
 
         /// <summary>
+        /// Additional information provided by the submitter for understanding the enclosing data.
+        /// </summary>
+        [GedComTag("NOTE")]
+        public List<NoteRecord> Notes { get; set; } = new List<NoteRecord>();
+
+        /// <summary>
         /// </summary>
         [GedComTag("_PHOTO_RIN")]
         public string PHOTO_RIN { get; set; }

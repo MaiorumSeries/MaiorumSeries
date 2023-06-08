@@ -48,5 +48,12 @@ namespace MaiorumSeries.GedComModel
         [GedComTag("ADDR")]
         public AddressStructure Address { get; set; }
 
+
+        /// <summary>
+        /// The Email of the submitter.
+        /// </summary>
+        [GedComTag("_EMAIL")]
+        public string EMAIL { get; set; }
+
     }
 }
