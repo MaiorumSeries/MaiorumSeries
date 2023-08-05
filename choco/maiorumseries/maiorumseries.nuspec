@@ -29,7 +29,8 @@
     <tags>maiorumseries genealogy book</tags>
     <summary>Genealogy tool called Maiorum Series.</summary>
     <description>This tool allows you to visualize your family tree with ease and accuracy in a book. Maiorum Series is designed to help you exchange and share your heritage in a meaningful way.</description>
-    <releaseNotes># Changelog
+    <releaseNotes>
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -74,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <!-- this section controls what actually gets packaged into the Chocolatey package -->
     <file src="tools\**" target="tools" />
     <file src="bin\**" target="bin" />
+    <file src="docs\**" target="docs" />
     <!--Building from Linux? You may need this instead: <file src="tools/**" target="tools" />-->
   </files>
 </package>

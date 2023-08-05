@@ -16,6 +16,7 @@ if (-not [System.IO.Directory]::Exists("$PSScriptRoot\maiorumseries\docs"))
     [System.IO.Directory]::CreateDirectory("$PSScriptRoot\maiorumseries\docs")
 }
 Copy-Item -Path "$PSScriptRoot\..\ChangeLog.md" -Destination "$PSScriptRoot\maiorumseries\docs\ChangeLog.md"  -Force 
+Copy-Item -Path "$PSScriptRoot\..\README.md" -Destination "$PSScriptRoot\maiorumseries\docs\README.md"  -Force 
 
 Set-Location "$PSScriptRoot\maiorumseries"
 
@@ -24,7 +25,6 @@ $changeLog =  Get-Content  "$PSScriptRoot\maiorumseries\docs\ChangeLog.md" | Out
 
 $nuspec.package.metadata.releaseNotes = $changeLog.ToString()
 $nuspec.Save("$PSScriptRoot\maiorumseries\maiorumseries.nuspec")
-#Set-Content $nuspec -Path "$PSScriptRoot\maiorumseries\maiorumseries.nuspec"
 
 choco pack 
 
