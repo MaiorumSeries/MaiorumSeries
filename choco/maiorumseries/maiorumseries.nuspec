@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Read this before creating packages: https://chocolatey.org/docs/create-packages -->
 <!-- It is especially important to read the above link to understand additional requirements when publishing packages to the community feed aka dot org (https://chocolatey.org/packages). -->
-
 <!-- Test your packages in a test environment: https://github.com/chocolatey/chocolatey-test-environment -->
-
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
@@ -12,7 +10,6 @@
     <!-- <packageSourceUrl>Where is this Chocolatey package located (think GitHub)? packageSourceUrl is highly recommended for the community feed</packageSourceUrl>-->
     <owners>Cord Burmeister</owners>
     <!-- ============================== -->
-
     <!-- == SOFTWARE SPECIFIC SECTION == -->
     <!-- This section is about the software itself -->
     <title>maiorumseries (Install)</title>
@@ -32,15 +29,31 @@
     <tags>maiorumseries genealogy book</tags>
     <summary>Genealogy tool called Maiorum Series.</summary>
     <description>This tool allows you to visualize your family tree with ease and accuracy in a book. Maiorum Series is designed to help you exchange and share your heritage in a meaningful way.</description>
-    <!-- <releaseNotes>__REPLACE_OR_REMOVE__MarkDown_Okay</releaseNotes> -->
-    <!-- =============================== -->      
+    <releaseNotes># Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 0.1.0.0
+
+### Added
+
+- Generation of the book with ancestors
+- First version of the gc2book program.
+- Published as chocolatey package. Pending review.
+
+## [Unreleased]
+
+</releaseNotes>
+    <!-- =============================== -->
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
     <dependencies>
-      <dependency id="dotnet-6.0-runtime"  />
+      <dependency id="dotnet-6.0-runtime" />
       <!-- <dependency id="miktex"  /> -->
     </dependencies>
-        <!--<dependencies>
+    <!--<dependencies>
       <dependency id="" version="__MINIMUM_VERSION__" />
       <dependency id="" version="[__EXACT_VERSION__]" />
       <dependency id="" version="[_MIN_VERSION_INCLUSIVE, MAX_VERSION_INCLUSIVE]" />
@@ -53,7 +66,6 @@
          - You want to use Get-PackageParameters and on less than 0.11.0
          - You want to take advantage of other functions in the core community maintainer's team extension package
     -->
-
     <!--<provides>NOT YET IMPLEMENTED</provides>-->
     <!--<conflicts>NOT YET IMPLEMENTED</conflicts>-->
     <!--<replaces>NOT YET IMPLEMENTED</replaces>-->
@@ -61,7 +73,7 @@
   <files>
     <!-- this section controls what actually gets packaged into the Chocolatey package -->
     <file src="tools\**" target="tools" />
-        <file src="bin\**" target="bin" />
+    <file src="bin\**" target="bin" />
     <!--Building from Linux? You may need this instead: <file src="tools/**" target="tools" />-->
   </files>
 </package>
