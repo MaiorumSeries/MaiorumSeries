@@ -12,5 +12,11 @@ namespace MaiorumSeries.GedComModel
 
         [GedComTag("NOTE")]
         public List<NoteRecord> Notes { get; set; } = new List<NoteRecord>();
+
+
+        [GedComTag("OBJE")]
+        public List<MultimediaRecord> Media { get; set; } = new List<MultimediaRecord>();
+
+
     }
 }

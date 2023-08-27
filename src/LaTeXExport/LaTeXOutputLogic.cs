@@ -168,11 +168,11 @@ namespace MaiorumSeries.LaTeXExport
             }
         }
 
-        private static void WriteIndividualWhenNotWritten(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
+        private static void WriteIndividualWhenNotWritten(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, IndividualRecord individualRecord)
         {
             if (!context.WrittenIndividuals.Contains(individualRecord.XrefId))
             {
-                WriteIndividual(context, model, writer, individualRecord);
+                WriteIndividual(context, outputContext, model, writer, individualRecord);
             }
         }
 
@@ -183,7 +183,7 @@ namespace MaiorumSeries.LaTeXExport
         /// <param name="model"></param>
         /// <param name="writer"></param>
         /// <param name="individualRecord"></param>
-        private static void WriteIndividual(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
+        private static void WriteIndividual(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, IndividualRecord individualRecord)
         {
             // Write the heading 
             writer.Header3(writer.ToTeX(individualRecord.GetDisplayName(context.Culture)));
@@ -344,7 +344,7 @@ namespace MaiorumSeries.LaTeXExport
                 writer.Header4(Strings.ResourceManager.GetString("PersonalEvents", context.Culture));
                 foreach (var e in commonEventList)
                 {
-                    WriteCommonEvent(context, model, writer, e, individualRecord.GetDisplayName(context.Culture));
+                    WriteCommonEvent(context, outputContext, model, writer, e, individualRecord.GetDisplayName(context.Culture));
                 }
             }
             #endregion 
@@ -428,7 +428,7 @@ namespace MaiorumSeries.LaTeXExport
         }
 
 
-        private static void WriteCommonEvent(ILaTeXExportContext context, Model model, LaTexWriter writer, EventDetailRecord eventItem, string name)
+        private static void WriteCommonEvent(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, EventDetailRecord eventItem, string name)
         {
 
             if (eventItem.Tag != "RESI") return;
@@ -449,12 +449,33 @@ namespace MaiorumSeries.LaTeXExport
                 WriteMediaList(context, model, writer, eventItem.Address.Media);
             }
 
+            if (eventItem.Place != null)
+            {
+                if (!outputContext.PlaceNames.Contains (eventItem.Place.Value))
+                {
+                    writer.RawOutput(@"\index[places]{" + writer.ToTeX (eventItem.Place.Value) + "}\n");
+                    writer.Label("PLACE:" + eventItem.Place.Value);
+                    outputContext.PlaceNames.Add(eventItem.Place.Value);
+                    WriteNoteList(context, model, writer, eventItem.Place.Notes);
+                    WriteMediaList(context, model, writer, eventItem.Place.Media);
+                }
+                else
+                {
+                    writer.HyperReference("PLACE:" + eventItem.Place.Value, eventItem.Place.Value);
+                }
+
+
+
+            }
+
             if (eventItem.Media.Count > 0)
             {
                 //writer.Header4(Strings.ResourceManager.GetString("History", context.Culture));
                 // Images are floating away writer.Header4(Strings.ResourceManager.GetString("Media", context.Culture));
                 WriteMediaList(context, model, writer, eventItem.Media);
             }
+
+            
         }
 
         enum SourceEnum
@@ -810,6 +831,8 @@ namespace MaiorumSeries.LaTeXExport
                 return;
             }
 
+            var outputContext = new OutputContext();
+
             bookMetaInformation = EnsureMetaDataFile(context, bookMetaInformation);
 
 
@@ -913,12 +936,13 @@ namespace MaiorumSeries.LaTeXExport
 
                 laWriter.RawOutput(@"\makeindex[title = " + Strings.ResourceManager.GetString("GeneralIndex", context.Culture) + "] % Create the default index");
                 laWriter.RawOutput(@"\makeindex[name = persons, title = " + Strings.ResourceManager.GetString("IndexOfNames", context.Culture) + ", columns = 3] % Create an index named 'persons'");
+                laWriter.RawOutput(@"\makeindex[name = places, title = " + Strings.ResourceManager.GetString("IndexOfPlaces", context.Culture) + ", columns = 3] % Create an index named 'places'");
 
                 laWriter.RawOutput(@"\setcounter{tocdepth}{1}"); // Restrict to one level which are the names
 
                 laWriter.RawOutput(@"\begin{document}");
 
-                WriteLaTexBookStucture(context, model, laWriter, bookMetaInformation, record);
+                WriteLaTexBookStucture(context, outputContext, model, laWriter, bookMetaInformation, record);
 
                 laWriter.RawOutput(@"\end{document}");
             }
@@ -1071,7 +1095,7 @@ namespace MaiorumSeries.LaTeXExport
         //+ Ahnen graphisch(1 Übersichtstafel und 16 Anschlusstafeln bis Generation 11)
         //+ Stammfolge zu meinem Familiennamen.
 
-        public static void WriteLaTexBookStucture(ILaTeXExportContext context, Model model, LaTexWriter writer, BookMetaInformation bookMetaInformation, IndividualRecord individualRecord)
+        public static void WriteLaTexBookStucture(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, BookMetaInformation bookMetaInformation, IndividualRecord individualRecord)
         {
             writer.RawOutput(@"\frontmatter");
 
@@ -1094,25 +1118,26 @@ namespace MaiorumSeries.LaTeXExport
             writer.RawOutput(@"\newpage{}");
             writer.Header2(Strings.ResourceManager.GetString("MainPersonAndFamily", context.Culture));
             
-            WriteIndividual(context, model, writer, individualRecord);
-            WriteDescendantsGenerations (context, model, writer, individualRecord, true);
+            WriteIndividual(context, outputContext, model, writer, individualRecord);
+            WriteDescendantsGenerations (context, outputContext, model, writer, individualRecord, true);
 
             writer.RawOutput(@"\newpage{}");
 
             if (HasDescendantsGenerations (context, model, individualRecord))
             {
                 writer.Header1(Strings.ResourceManager.GetString("Descendants", context.Culture));
-                WriteDescendantsGenerations(context, model, writer, individualRecord, false);
+                WriteDescendantsGenerations(context, outputContext, model, writer, individualRecord, false);
             }
             writer.Header1(Strings.ResourceManager.GetString("Ancestors", context.Culture));
 
-            WriteAncestorsGenerations(context, model, writer, individualRecord);
+            WriteAncestorsGenerations(context, outputContext, model, writer, individualRecord);
 
             writer.RawOutput(@"\appendix");
             writer.RawOutput(@"\listoffigures");
             writer.RawOutput(@"\listoftables");
             writer.RawOutput(@"\printindex");
             writer.RawOutput(@"\printindex[persons] % Output the 'persons' index");
+            writer.RawOutput(@"\printindex[places] % Output the 'persons' index");
 
             //writer.RawOutput(@"\backmatter");
             //writer.RawOutput(@"\chapter{ Last note}");
@@ -1355,7 +1380,7 @@ namespace MaiorumSeries.LaTeXExport
         }
 
 
-        private static void WriteTribe(ILaTeXExportContext context, Model model, LaTexWriter writer, TribeInfo tribe)
+        private static void WriteTribe(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, TribeInfo tribe)
         {
             writer.Header2(Strings.ResourceManager.GetString("ClanFrom", context.Culture)  + tribe.Individual.GetDisplayName(context.Culture));
 
@@ -1387,12 +1412,12 @@ namespace MaiorumSeries.LaTeXExport
 
                 foreach (var indi in descendants)
                 {
-                    WriteIndividualWhenNotWritten(context, model, writer, indi);
+                    WriteIndividualWhenNotWritten(context, outputContext, model, writer, indi);
                 }
             }
         }
 
-        private static void WriteAncestorsGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord)
+        private static void WriteAncestorsGenerations(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, IndividualRecord individualRecord)
         {
             var generations = new ReleationShipStructure(new ReleationshipIndividual(individualRecord));
 
@@ -1404,7 +1429,7 @@ namespace MaiorumSeries.LaTeXExport
 
                 foreach (var i in generations.Generations[key])
                 {
-                    WriteIndividual(context, model, writer, i.Individual);
+                    WriteIndividual(context, outputContext, model, writer, i.Individual);
                 }
             }
 
@@ -1426,7 +1451,7 @@ namespace MaiorumSeries.LaTeXExport
                 foreach (var t in infos)
 
                 {
-                    WriteTribe(context, model, writer, t);
+                    WriteTribe(context, outputContext, model, writer, t);
                 }
 
             }
@@ -1446,7 +1471,7 @@ namespace MaiorumSeries.LaTeXExport
         }
 
 
-        private static void WriteDescendantsGenerations(ILaTeXExportContext context, Model model, LaTexWriter writer, IndividualRecord individualRecord, bool onlyGenerationZero)
+        private static void WriteDescendantsGenerations(ILaTeXExportContext context, OutputContext outputContext, Model model, LaTexWriter writer, IndividualRecord individualRecord, bool onlyGenerationZero)
         {
             var generations = new ReleationShipStructure(new ReleationshipIndividual(individualRecord));
 
@@ -1471,7 +1496,7 @@ namespace MaiorumSeries.LaTeXExport
 
                 foreach (var i in generations.Generations[key])
                 {
-                    WriteIndividual(context, model, writer, i.Individual);
+                    WriteIndividual(context, outputContext, model, writer, i.Individual);
                 }
             }
         }

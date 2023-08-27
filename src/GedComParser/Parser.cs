@@ -1,4 +1,5 @@
-﻿using MaiorumSeries.GedComModel;
+﻿using MaiorumSeries.GedComLogic;
+using MaiorumSeries.GedComModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -346,8 +347,42 @@ namespace MaiorumSeries.GedComParser
 
             var model = TansformGenericModelToModel(context, genericModel);
 
+            ResolveReferences(context, model);
+
             return model;
         }
 
+        private void ResolveReferences(IParserContext context, Model model)
+        {
+            foreach (var indi in model.Individuals)
+            {
+                foreach (var e in indi.Events)
+                {
+                    if (e.Place.IsPlaceReference())
+                    {
+                        var p = model.Places.Find(x => x.Value == e.Place.Value);
+                        if (p != null)
+                        {
+                            e.Place = p;
+                        }
+                    }
+                }
+            }
+            foreach (var fam in model.Families)
+            {
+                foreach (var e in fam.Events)
+                {
+                    if (e.Place.IsPlaceReference())
+                    {
+                        var p = model.Places.Find(x => x.Value == e.Place.Value);
+                        if (p != null)
+                        {
+                            e.Place = p;
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }

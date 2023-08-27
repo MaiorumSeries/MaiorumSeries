@@ -38,7 +38,7 @@ namespace MaiorumSeries.GedComModel
         /// A jurisdictional name to identify the place or location of an event
         /// </summary>
         [GedComTag("PLAC")]
-        public PlaceRecord Palce { get; set; }
+        public PlaceRecord Place { get; set; }
 
         /// <summary>
         /// A description of the cause of the associated event or fact, such as the cause of death.

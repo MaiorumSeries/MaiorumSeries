@@ -207,4 +207,7 @@
   <data name="MainPersonAndFamily" xml:space="preserve">
     <value>Haupt Person und Familie</value>
   </data>
+  <data name="IndexOfPlaces" xml:space="preserve">
+    <value>Verzeichnis der Plätze</value>
+  </data>
 </root>

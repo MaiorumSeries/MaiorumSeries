@@ -29,12 +29,22 @@ namespace MaiorumSeries.GedComLogic
             }
             return false;
         }
+        public static bool IsPlaceReference (this PlaceRecord place)
+        {
+            if (place == null) return false;
 
-        public static bool IsNonCommonEventItem(this EventDetailRecord eventDetail)
+            if (place.Media?.Count > 0) return false;
+            if (place.Notes?.Count > 0) return false;
+            return true;
+        }
+
+
+        public static bool IsNonCommonEventItem(this EventDetailRecord eventDetail, Model model)
         {
             if (eventDetail.Address != null) return true;
-            if (eventDetail.Notes.Count > 0) return true;
-            if (eventDetail.Media.Count > 0) return true;
+            if (eventDetail.Notes?.Count > 0) return true;
+            if (eventDetail.Media?.Count > 0) return true;
+            if (eventDetail.Place != null && !eventDetail.Place.IsPlaceReference()) return true;
             return false;
         }
 
@@ -120,11 +130,11 @@ namespace MaiorumSeries.GedComLogic
         {
             var str = new StringBuilder();
 
-            if (eventDetail.Palce != null)
+            if (eventDetail.Place != null)
             {
-                if (!string.IsNullOrEmpty(eventDetail.Palce.Value))
+                if (!string.IsNullOrEmpty(eventDetail.Place.Value))
                 {
-                    str.Append(eventDetail.Palce.Value.Replace(" ", @" \ "));
+                    str.Append(eventDetail.Place.Value.Replace(" ", @" \ "));
                 }
                 else
                 {

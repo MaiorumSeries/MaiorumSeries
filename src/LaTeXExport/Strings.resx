@@ -173,6 +173,9 @@
   <data name="IndexOfNames" xml:space="preserve">
     <value>Index of names</value>
   </data>
+  <data name="IndexOfPlaces" xml:space="preserve">
+    <value>Index of places</value>
+  </data>
   <data name="MainPerson" xml:space="preserve">
     <value>Main Person</value>
   </data>

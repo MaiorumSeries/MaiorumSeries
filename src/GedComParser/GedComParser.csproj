@@ -15,6 +15,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\GedComLogic\GedComLogic.csproj" />
     <ProjectReference Include="..\GedComModel\GedComModel.csproj" />
   </ItemGroup>
 

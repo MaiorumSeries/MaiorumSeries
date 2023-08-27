@@ -90,7 +90,7 @@ namespace gc2book
             [Option('n', "name", Required = true, Default = "John Doe", HelpText = "Set the name of the main person.")]
             public string Name { get; set; } = "John Doe";
 
-            [Option('c', "culture", Required = false, Default = "en-US", HelpText = "Set the language culture of output.")]
+            [Option('l', "language", Required = false, Default = "en-US", HelpText = "Set the language culture of output.")]
             public string Culture { get; set; } = "en-US";
 
             [Option('g', "gedcomfile", Required = false, HelpText = "Set gedcom input file name .")]

@@ -223,6 +223,15 @@ namespace MaiorumSeries.LaTeXExport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Index of places.
+        /// </summary>
+        internal static string IndexOfPlaces {
+            get {
+                return ResourceManager.GetString("IndexOfPlaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Person.
         /// </summary>
         internal static string MainPerson {
