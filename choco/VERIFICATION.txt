@@ -1,0 +1,12 @@
+﻿
+VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+
+Binaries are releases of a open source project hosted under 
+https://github.com/MaiorumSeries/MaiorumSeries 
+
+Either download the latest release from the Github and extract the assets
+or perform gh release download <latest release> 
+Get-FileHash *.*
+
