@@ -30,7 +30,7 @@ namespace MaiorumSeries.LaTeXExport
     public static class LaTeXOutputLogic
     {
 
-        private static CultureInfo germanCultureInfo = new CultureInfo("de-DE");
+        private static readonly CultureInfo germanCultureInfo = new CultureInfo("de-DE");
 
         private static string CalculateOutputPath(ILaTeXExportContext context, string fileName)
         {

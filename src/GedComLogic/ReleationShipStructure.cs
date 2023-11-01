@@ -10,7 +10,7 @@ namespace MaiorumSeries.GedComLogic
     /// </summary>
     public class ReleationShipStructure
     {
-        ReleationshipIndividual _proband;
+        readonly ReleationshipIndividual _proband;
 
         public ReleationShipStructure(ReleationshipIndividual individual)
         {

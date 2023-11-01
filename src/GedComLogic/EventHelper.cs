@@ -39,7 +39,7 @@ namespace MaiorumSeries.GedComLogic
         }
 
 
-        public static bool IsNonCommonEventItem(this EventDetailRecord eventDetail, Model model)
+        public static bool IsNonCommonEventItem(this EventDetailRecord eventDetail)
         {
             if (eventDetail.Address != null) return true;
             if (eventDetail.Notes?.Count > 0) return true;

@@ -34,9 +34,11 @@ namespace MaiorumSeries.GedComModel
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
 
-            var config = new MappingConfig();
-            config.KeyWordMapping = new Dictionary<string, Type>();
-            config.AliasWordMapping = new Dictionary<string, Type>();
+            var config = new MappingConfig
+            {
+                KeyWordMapping = new Dictionary<string, Type>(),
+                AliasWordMapping = new Dictionary<string, Type>()
+            };
 
             var inputList = GetTypesWithRecordAttribute(assembly);
             foreach (var type in inputList)

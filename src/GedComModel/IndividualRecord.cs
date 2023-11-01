@@ -88,7 +88,7 @@ namespace MaiorumSeries.GedComModel
         public string UID { get; set; }
 
         [GedComTag("_UPD")]
-        public string _UPD { get; set; }
+        public string UPD { get; set; }
 
         /// <summary>
         /// ID Tag from Family Search Tree ID

@@ -113,10 +113,11 @@ namespace gc2book
                   .WithParsed<Options>(o =>
                   {
                       var parser = new MaiorumSeries.GedComParser.Parser();
-                      var parserContext = new ConsoleParserContext();
-
-                      parserContext.Verbose = o.Verbose;
-                      parserContext.Debug = o.Debug;
+                      var parserContext = new ConsoleParserContext
+                      {
+                          Verbose = o.Verbose,
+                          Debug = o.Debug
+                      };
 
                       if (string.IsNullOrEmpty (o.InputFileName))
                       {
@@ -128,20 +129,22 @@ namespace gc2book
 
                       var model = parser.Parse(parserContext, fileName);
 
-                      ConsoleLaTeXExportContext laTeXExportContext = new ConsoleLaTeXExportContext();
-//                      laTeXExportContext.Culture = new CultureInfo("de-DE");
-                      laTeXExportContext.Culture = new CultureInfo(o.Culture);
-                      laTeXExportContext.OutputName = o.OutputName;
-                      laTeXExportContext.OutputPath = o.OutputPath;
-                      //                      laTeXExportContext.Culture = model.GetCultureInfo();
-                      laTeXExportContext.WriteSources = o.WriteSources;
-                      laTeXExportContext.CopySources = o.CopySources;
-                      laTeXExportContext.WriteTribe = o.WriteTribe;
+                      var laTeXExportContext = new ConsoleLaTeXExportContext
+                      {
+                          //                      laTeXExportContext.Culture = new CultureInfo("de-DE");
+                          Culture = new CultureInfo(o.Culture),
+                          OutputName = o.OutputName,
+                          OutputPath = o.OutputPath,
+                          //                      laTeXExportContext.Culture = model.GetCultureInfo();
+                          WriteSources = o.WriteSources,
+                          CopySources = o.CopySources,
+                          WriteTribe = o.WriteTribe
+                      };
 
 
                       string forPersonId = model.FindBestNameMatch(o.Name);
 
-                      BookMetaInformation bookMetaInformation = new BookMetaInformation()
+                      var bookMetaInformation = new BookMetaInformation()
                       {
                           Author = "Author Name",
                           Title = "Title of the Book",

@@ -187,7 +187,7 @@ namespace MaiorumSeries.GedComLogic
             var list = new List<EventDetailRecord>();
             foreach (var e in individualRecord.Events)
             {
-                if (e.IsNonCommonEventItem(model))
+                if (e.IsNonCommonEventItem())
                 {
                   
                     list.Add(e);
@@ -200,7 +200,7 @@ namespace MaiorumSeries.GedComLogic
                 {
                     foreach (var e in family.Events)
                     {
-                        if (e.IsNonCommonEventItem(model))
+                        if (e.IsNonCommonEventItem())
                         {
                             list.Add(e);
                         }
