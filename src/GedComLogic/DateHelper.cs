@@ -75,8 +75,7 @@ namespace MaiorumSeries.GedComLogic
             {
                 if (IsDigitsOnly(parts[0]))
                 {
-                    int dayValue;
-                    if (int.TryParse (parts[0], out dayValue))
+                    if (int.TryParse(parts[0], out int dayValue))
                     {
                         if (dayValue >= 1 && dayValue <= 31)
                         {
@@ -86,8 +85,7 @@ namespace MaiorumSeries.GedComLogic
                 }
                 if (IsDigitsOnly(parts[1]))
                 {
-                    int monthValue;
-                    if (int.TryParse(parts[1], out monthValue))
+                    if (int.TryParse(parts[1], out int monthValue))
                     {
                         if (monthValue >= 1 && monthValue <= 12)
                         {
@@ -101,8 +99,7 @@ namespace MaiorumSeries.GedComLogic
                 }
                 if (IsDigitsOnly(parts[2]))
                 {
-                    int yearValue;
-                    if (int.TryParse(parts[2], out yearValue))
+                    if (int.TryParse(parts[2], out int yearValue))
                     {
                         data.Year = yearValue;
                     }
@@ -113,8 +110,7 @@ namespace MaiorumSeries.GedComLogic
             {
                 if (IsDigitsOnly(parts[0]))
                 {
-                    int monthValue;
-                    if (int.TryParse(parts[0], out monthValue))
+                    if (int.TryParse(parts[0], out int monthValue))
                     {
                         if (monthValue >= 1 && monthValue <= 12)
                         {
@@ -128,8 +124,7 @@ namespace MaiorumSeries.GedComLogic
                 }
                 if (IsDigitsOnly(parts[1]))
                 {
-                    int yearValue;
-                    if (int.TryParse(parts[1], out yearValue))
+                    if (int.TryParse(parts[1], out int yearValue))
                     {
                         data.Year = yearValue;
                     }
@@ -141,8 +136,7 @@ namespace MaiorumSeries.GedComLogic
             {
                 if (IsDigitsOnly(parts[0]))
                 {
-                    int yearValue;
-                    if (int.TryParse(parts[0], out yearValue))
+                    if (int.TryParse(parts[0], out int yearValue))
                     {
                         data.Year = yearValue;
                     }
@@ -152,8 +146,8 @@ namespace MaiorumSeries.GedComLogic
             return data;
         }
 
-        private static Random s_random = new Random();
-        private static string[] s_months =
+        private static readonly Random s_random = new Random();
+        private static readonly string[] s_months =
         {
             "JAN",
             "FEB",

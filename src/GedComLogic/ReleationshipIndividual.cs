@@ -15,7 +15,7 @@ namespace MaiorumSeries.GedComLogic
     public class ReleationshipIndividual
     {
         private int predecessorId = 1;
-        private IndividualRecord _record;
+        private readonly IndividualRecord _record;
 
         public IndividualRecord Individual
         {
@@ -37,15 +37,19 @@ namespace MaiorumSeries.GedComLogic
 
         public ReleationshipIndividual GetAsFather(IndividualRecord father)
         {
-            var result = new ReleationshipIndividual(father);
-            result.predecessorId = predecessorId * 2;
+            var result = new ReleationshipIndividual(father)
+            {
+                predecessorId = predecessorId * 2
+            };
             return result;
         }
 
         public ReleationshipIndividual GetAsMother(IndividualRecord mother)
         {
-            var result = new ReleationshipIndividual(mother);
-            result.predecessorId = predecessorId * 2 + 1;
+            var result = new ReleationshipIndividual(mother)
+            {
+                predecessorId = predecessorId * 2 + 1
+            };
             return result;
         }
         public ReleationshipIndividual GetAsSpouse(IndividualRecord spouse)
