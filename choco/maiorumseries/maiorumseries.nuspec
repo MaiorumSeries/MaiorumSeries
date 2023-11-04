@@ -22,7 +22,8 @@
     <!-- If there is a license Url available, it is required for the community feed -->
     <licenseUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/choco/maiorumseries/maiorumseries.nuspec</projectSourceUrl>
+    <projectSourceUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/</projectSourceUrl>
+    <packageSourceUrl>https://github.com/MaiorumSeries/MaiorumSeries/blob/main/choco/maiorumseries/maiorumseries.nuspec</packageSourceUrl>
     <docsUrl>https://maiorumseries.github.io</docsUrl>
     <!--<mailingListUrl></mailingListUrl>-->
     <!--<bugTrackerUrl></bugTrackerUrl>-->
@@ -54,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <!-- =============================== -->
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
     <dependencies>
-      <dependency id="dotnet-6.0-runtime" />
+      <dependency id="dotnet-6.0-runtime" version="6.0.24" />
       <!-- <dependency id="miktex"  /> -->
     </dependencies>
     <!--<dependencies>
