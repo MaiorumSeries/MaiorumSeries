@@ -6,7 +6,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>maiorumseries</id>
-    <version>0.1.0.0</version>
+    <version>1.2.0.0</version>
     <!-- <packageSourceUrl>Where is this Chocolatey package located (think GitHub)? packageSourceUrl is highly recommended for the community feed</packageSourceUrl>-->
     <owners>Cord Burmeister</owners>
     <!-- ============================== -->
@@ -40,6 +40,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 1.2.0.0
+
+### Updated
+
+- Changed to .NET 8.0 runtime 
+
 ## 0.1.0.0
 
 ### Added
@@ -55,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <!-- =============================== -->
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
     <dependencies>
-      <dependency id="dotnet-6.0-runtime" version="6.0.24" />
+      <dependency id="dotnet-8.0-runtime" version="8.0.0" />
       <!-- <dependency id="miktex"  /> -->
     </dependencies>
     <!--<dependencies>

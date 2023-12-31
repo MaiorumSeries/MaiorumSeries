@@ -2,10 +2,10 @@ $location = Get-Location
 
 Set-Location $PSScriptRoot
 
-$releaseTag = "v1.0.1"
-$releaseNotes = "Working on first release"
+$releaseTag = "v1.2.0"
+$releaseNotes = "Update to .NET 8 runtime"
 
-$sourceLocation = "$PSScriptRoot\..\src\gc2book\bin\Release\net6.0"
+$sourceLocation = "$PSScriptRoot\..\src\gc2book\bin\Release\net8.0"
 
 &gh auth status
 

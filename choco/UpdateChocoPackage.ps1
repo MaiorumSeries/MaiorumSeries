@@ -3,8 +3,8 @@ $location = Get-Location
 
 Set-Location $PSScriptRoot
 
-$releaseTag = "v1.0.1"
-$sourceLocation = "$PSScriptRoot\..\src\gc2book\bin\Release\net6.0"
+$releaseTag = "v1.2.0"
+$sourceLocation = "$PSScriptRoot\..\src\gc2book\bin\Release\net8.0"
 
 &gh auth status
 
