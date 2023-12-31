@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 
 - Changed to .NET 8.0 runtime 
+- Improve parser with new tag handling
 
 ## 0.1.0.0
 
