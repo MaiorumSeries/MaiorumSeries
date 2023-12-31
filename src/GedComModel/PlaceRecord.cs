@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace MaiorumSeries.GedComModel
 {
@@ -18,5 +19,11 @@ namespace MaiorumSeries.GedComModel
         public List<MultimediaRecord> Media { get; set; } = new List<MultimediaRecord>();
 
 
+        /// <summary>
+        ///  Standard – GeoCode will insert the standardized place name here when it finds a match, or you select a match.
+        /// </summary>
+        [GedComTag("STND")]
+        public string Standard { get; set; }
+       
     }
 }

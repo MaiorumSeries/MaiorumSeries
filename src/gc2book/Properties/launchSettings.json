@@ -2,7 +2,7 @@
   "profiles": {
     "gc2book": {
       "commandName": "Project",
-      "commandLineArgs": "-d -v -n \"Jelto Burmeister\" -p \"c:\\work\\books\\Debug\" -o FileName.tex -g \"C:\\Users\\CordB\\OneDrive\\Chronik\\GedCom\\RootsMagic\\Burmeisters.ged\"  "
+      "commandLineArgs": "-d -v -n \"Jelto Burmeister\" -p \"c:\\work\\books\\Debug\" -o FileName -g \"C:\\Users\\CordB\\OneDrive\\Chronik\\GedCom\\RootsMagic\\Burmeisters.ged\"  "
     },
     "WSL": {
       "commandName": "WSL2",

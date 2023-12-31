@@ -25,7 +25,7 @@ namespace MaiorumSeries.GedComParser
         int Line { get; set; }
 
         /// <summary>
-        /// Number of lines read from the input filel
+        /// Number of lines read from the input file
         /// </summary>
         int ReadLines { get; set; }
 

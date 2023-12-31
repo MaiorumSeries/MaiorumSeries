@@ -56,7 +56,7 @@ namespace MaiorumSeries.GedComModel
         [GedComTag("NAME")]
         public List<NameStructureData> Names { get; set; } = new List<NameStructureData>();
 
-        [GedComTag("BIRT,CHR,DEAT,BURI,CHREM,ADOP,EVEN,BAPM,BARM,BASM,BLES,RESI,TITL,FACT,OCCU,CONF")]
+        [GedComTag("BIRT,CHR,DEAT,BURI,CHREM,ADOP,EVEN,BAPM,BARM,BASM,BLES,RESI,TITL,FACT,OCCU,CONF,PROP,PROB,GRAD,NATU")]
         public List<EventDetailRecord> Events { get; set; } = new List<EventDetailRecord>();
 
 
@@ -99,5 +99,7 @@ namespace MaiorumSeries.GedComModel
         [GedComTag("CHAN")]
         public ChangeRecord ChangeRecord { get; set; }
 
+        [GedComTag("_COLOR")]
+        public string Color { get; set; }
     }
 }

@@ -30,5 +30,9 @@ namespace MaiorumSeries.GedComModel
 
         [GedComTag("OBJE")]
         public List<MultimediaRecord> Media { get; set; } = new List<MultimediaRecord>();
+
+        [GedComTag("MAP")]
+        public MappingRecord Mapping { get; set; }
+
     }
 }

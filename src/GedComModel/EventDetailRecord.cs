@@ -16,7 +16,7 @@ namespace MaiorumSeries.GedComModel
     /// defined by the value of the subordinate TYPE tag.
     /// </summary>
     /// 
-    [GedComRecord("BIRT,CHR,DEAT,BURI,CHREM,ADOP,EVEN,BAPM,BASM,BLES,RESI,MARR,DIV,TITL,FACT,OCCU,CONF")]
+    [GedComRecord("BIRT,CHR,DEAT,BURI,CHREM,ADOP,EVEN,BAPM,BASM,BLES,RESI,MARR,DIV,TITL,FACT,OCCU,CONF,PROP,PROB,GRAD,NATU")]
     public class EventDetailRecord : TypedBaseRecord
     {
 
@@ -79,5 +79,13 @@ namespace MaiorumSeries.GedComModel
 
         [GedComTag("_UID")]
         public string UID { get; set; }
+
+
+
+        /// <summary>
+        /// This is a tag from RootMagic which indicates the proof status of this information
+        /// </summary>
+        [GedComTag("_PROOF")]
+        public string Proof { get; set; }
     }
 }
