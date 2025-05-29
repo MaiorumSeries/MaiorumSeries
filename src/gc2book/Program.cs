@@ -1,19 +1,22 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
+using MaiorumSeries.GedComLogic;
+using MaiorumSeries.GedComModel;
 using MaiorumSeries.GedComParser;
 using MaiorumSeries.LaTeXExport;
-using MaiorumSeries.GedComLogic;
+using System.Globalization;
 
 namespace gc2book
 {
+    /// <summary>
+    /// Main program class for the gc2book application.
+    /// Handles command-line parsing, GEDCOM file processing, and LaTeX export.
+    /// </summary>
     class Program
     {
-
+        /// <summary>
+        /// Implementation of IParserContext for console-based error and warning output.
+        /// Tracks parsing state and provides debug/verbose output.
+        /// </summary>
         internal class ConsoleParserContext : IParserContext
         {
             public bool Debug { get; set; }
@@ -22,22 +25,36 @@ namespace gc2book
             public int ReadLines { get; set; }
             public int ProcessedLine { get; set; }
 
+            /// <summary>
+            /// Writes an error message to the console.
+            /// </summary>
+            /// <param name="id">Error identifier.</param>
+            /// <param name="message">Error message format string.</param>
+            /// <param name="args">Arguments for the format string.</param>
             public void WriteError(string id, string message, params string[] args)
             {
                 Console.WriteLine("ERR (" + id + "): " + string.Format(message, args));
             }
 
+            /// <summary>
+            /// Writes a warning message to the console.
+            /// </summary>
+            /// <param name="id">Warning identifier.</param>
+            /// <param name="message">Warning message format string.</param>
+            /// <param name="args">Arguments for the format string.</param>
             public void WriteWarning(string id, string message, params string[] args)
             {
-                Console.WriteLine("WRN (" +id + "): " + string.Format(message, args));
+                Console.WriteLine("WRN (" + id + "): " + string.Format(message, args));
             }
         }
 
+        /// <summary>
+        /// Implementation of ILaTeXExportContext for console-based LaTeX export configuration and output.
+        /// </summary>
         internal class ConsoleLaTeXExportContext : ILaTeXExportContext
         {
             public string? OutputPath { get; set; }
             public string? OutputName { get; set; }
-
             public CultureInfo Culture { get; set; } = new CultureInfo("en-US");
             public List<string> WrittenFamilies { get; set; } = new List<string>();
             public List<string> WrittenIndividuals { get; set; } = new List<string>();
@@ -45,23 +62,43 @@ namespace gc2book
             public bool WriteTribe { get; set; } = false;
             public bool CopySources { get; set; } = false;
 
+            /// <summary>
+            /// Writes a verbose message to the console.
+            /// </summary>
+            /// <param name="message">The message to write.</param>
             public void VerboseMessage(string message)
             {
                 Console.WriteLine(string.Format(message));
             }
 
+            /// <summary>
+            /// Writes an error message to the console.
+            /// </summary>
+            /// <param name="message">The error message.</param>
             public void Error(string message)
             {
                 Console.WriteLine(string.Format(message));
             }
 
+            public void Error(IndividualRecord individual, string message)
+            {
+                Console.WriteLine(string.Format("Error for individual {0}: {1}", individual.GetDisplayName(Culture), message));
+            }
+
+            /// <summary>
+            /// Writes a formatted line to the console.
+            /// </summary>
+            /// <param name="message">The message format string.</param>
+            /// <param name="args">Arguments for the format string.</param>
             public void WriteLine(string message, params string[] args)
             {
                 Console.WriteLine(string.Format(message, args));
             }
 
-
-
+            /// <summary>
+            /// Initializes a new instance of the ConsoleLaTeXExportContext class.
+            /// Sets default values for export options in debug mode.
+            /// </summary>
             public ConsoleLaTeXExportContext()
             {
 #if DEBUG
@@ -72,7 +109,9 @@ namespace gc2book
             }
         }
 
-
+        /// <summary>
+        /// Command-line options for the gc2book application.
+        /// </summary>
         public class Options
         {
             [Option('d', "debug", Required = false, HelpText = "Set processing GEDCOM messages to debug.")]
@@ -106,6 +145,12 @@ namespace gc2book
             public bool WriteTribe { get; set; }
         }
 
+        /// <summary>
+        /// Main entry point for the application.
+        /// Parses command-line arguments, processes the GEDCOM file, and exports to LaTeX.
+        /// </summary>
+        /// <param name="args">Command-line arguments.</param>
+        /// <returns>Exit code (0 for success, non-zero for error).</returns>
         static int Main(string[] args)
         {
             int exitCode = 0;
@@ -119,7 +164,7 @@ namespace gc2book
                           Debug = o.Debug
                       };
 
-                      if (string.IsNullOrEmpty (o.InputFileName))
+                      if (string.IsNullOrEmpty(o.InputFileName))
                       {
                           Console.WriteLine("InputFileName is not set to a value");
                           exitCode = 2;
@@ -131,16 +176,13 @@ namespace gc2book
 
                       var laTeXExportContext = new ConsoleLaTeXExportContext
                       {
-                          //                      laTeXExportContext.Culture = new CultureInfo("de-DE");
                           Culture = new CultureInfo(o.Culture),
                           OutputName = o.OutputName,
                           OutputPath = o.OutputPath,
-                          //                      laTeXExportContext.Culture = model.GetCultureInfo();
                           WriteSources = o.WriteSources,
                           CopySources = o.CopySources,
                           WriteTribe = o.WriteTribe
                       };
-
 
                       string forPersonId = model.FindBestNameMatch(o.Name);
 

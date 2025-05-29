@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaiorumSeries.GedComModel;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -53,6 +54,9 @@ namespace MaiorumSeries.LaTeXExport
 
 
         void Error(string message);
+
+        void Error(IndividualRecord individual, string message);
+
 
         void VerboseMessage(string message);
 

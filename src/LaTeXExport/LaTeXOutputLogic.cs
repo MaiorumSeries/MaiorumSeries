@@ -144,26 +144,30 @@ namespace MaiorumSeries.LaTeXExport
                 {
                     var path = mr.FileName.Value;
 
-                    path = EnsureTeXableImage(path);
+                    var newpath = EnsureTeXableImage(path);
 
-                    if (!string.IsNullOrEmpty(path))
+                    if (!string.IsNullOrEmpty(newpath))
                     {
-                        if (File.Exists(path))
+                        if (File.Exists(newpath))
                         {
-                            path = path.Replace(@"\", "/");
+                            newpath = newpath.Replace(@"\", "/");
                             writer.RawOutput(@"\begin{wrapfigure}{r}{0.2\textwidth}");
                             writer.RawOutput(@"\begin{center}");
                             writer.RawOutput(@"\vspace{-90pt}");
-                            //writer.RawOutput(@"\includegraphics[width=0.25\textwidth]{C:/Users/CordB/OneDrive/Chronik/Bilder/Burmeister/Cord/Cord.jpg}");
-                            writer.RawOutput(@"\includegraphics[width=0.2\textwidth]{" + path + "}");
+                            writer.RawOutput(@"\includegraphics[width=0.2\textwidth]{" + newpath + "}");
                             writer.RawOutput(@"\end{center}");
                             writer.RawOutput(@"\end{wrapfigure}");
                         }
                         else
                         {
-                            context.Error(@"The Media record has a path reference which can not be found :" + path);
+                            context.Error(individualRecord, @"The Media record has a path reference which can not be found :" + newpath);
                         }
                     }
+                    else
+                    {
+                        context.Error(individualRecord, @"The Media record has a path reference to a file format which can not be processed: " + path);
+                    }
+
                 }
             }
         }
@@ -281,11 +285,12 @@ namespace MaiorumSeries.LaTeXExport
                                 title = mmr.Title;
                                 title = title.Replace("_", " ");
                             }
-                            if (!string.IsNullOrEmpty(path))
-                            {
-                                path = EnsureTeXableImage(path);
+                            var newpath = EnsureTeXableImage(path);
 
-                                if (File.Exists(path))
+                            if (!string.IsNullOrEmpty(newpath))
+                            {
+
+                                if (File.Exists(newpath))
                                 {
                                     if (pendingHeader)
                                     {
@@ -295,10 +300,9 @@ namespace MaiorumSeries.LaTeXExport
                                         pendingHeader = false;
                                     }
 
-                                    path = path.Replace(@"\", "/");
+                                    newpath = newpath.Replace(@"\", "/");
                                     writer.RawOutput(@"\begin{subfigure}[b]{0.45\linewidth}");
-                                    //writer.RawOutput(@"\includegraphics[width=0.25\textwidth]{C:/Users/CordB/OneDrive/Chronik/Bilder/Burmeister/Cord/Cord.jpg}");
-                                    writer.RawOutput(@"\includegraphics[width=0.95\textwidth]{" + path + "}");
+                                    writer.RawOutput(@"\includegraphics[width=0.95\textwidth]{" + newpath + "}");
                                     writer.RawOutput(@"\caption{" + title + "}");
                                     writer.RawOutput(@"\end{subfigure}");
 
@@ -316,8 +320,12 @@ namespace MaiorumSeries.LaTeXExport
                                 }
                                 else
                                 {
-                                    context.Error(@"The Media record has a path reference which can not be found: " + path);
+                                    context.Error(individualRecord, @"The Media record has a path reference which can not be found: " + newpath);
                                 }
+                            }
+                            else
+                            {
+                                context.Error(individualRecord, @"The Media record has a path reference to a file format which can not be processed: " + path);
                             }
                         }
                     }
@@ -394,19 +402,18 @@ namespace MaiorumSeries.LaTeXExport
                             title = mmr.Title;
                             title = title.Replace("_", " ");
                         }
-                        if (!string.IsNullOrEmpty(path))
-                        {
-                            path = EnsureTeXableImage(path);
+                        var newpath = EnsureTeXableImage(path);
 
-                            if (File.Exists(path))
+                        if (!string.IsNullOrEmpty(newpath))
+                        {
+                            if (File.Exists(newpath))
                             {
-                                path = path.Replace(@"\", "/");
+                                newpath = newpath.Replace(@"\", "/");
                                 writer.RawOutput(@"\begin{figure}[!ht]");
                                 writer.RawOutput(@"\centering");
 
                                 //writer.RawOutput(@"\begin{subfigure}[b]{0.45\linewidth}");
-                                ////writer.RawOutput(@"\includegraphics[width=0.25\textwidth]{C:/Users/CordB/OneDrive/Chronik/Bilder/Burmeister/Cord/Cord.jpg}");
-                                writer.RawOutput(@"\includegraphics[width=0.95\textwidth]{" + path + "}");
+                                writer.RawOutput(@"\includegraphics[width=0.95\textwidth]{" + newpath + "}");
                                 //writer.RawOutput(@"\caption{" + title + "}");
                                 //writer.RawOutput(@"\end{subfigure}");
                                 writer.RawOutput(@"\caption{" + title + "}");
@@ -416,9 +423,14 @@ namespace MaiorumSeries.LaTeXExport
                             }
                             else
                             {
-                                context.Error(@"The Media record has a path reference which can not be found: " + path);
+                                context.Error(@"The Media record has a path reference which can not be found: " + newpath);
                             }
                         }
+                        else
+                        {
+                            context.Error(@"The Media record has a path reference to a file format which can not be processed: " + path);
+                        }
+
                     }
                 }
             }
